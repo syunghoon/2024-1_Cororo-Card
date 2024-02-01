@@ -13,7 +13,7 @@
 
       .contWrap {
         position: relative;
-        margin: 0 auto;
+        margin: 0;
         width: 100vw;
         height: 100vh;
         /* background: url(./image/06_background.png) no-repeat; */
@@ -45,10 +45,9 @@
 
       .center {
         width: 100%;
-        margin: 0 auto;
+        margin: 0;
         bottom: 0%;
-        left: 10%;
-        transform: translateX(-10%);
+        left: 0%;
       }
 
       .plant {
@@ -74,19 +73,7 @@
       const speed = 0.1;
 
       window.addEventListener("mousemove", (e) => {
-        x = e.pageX - window.innerWidth / 2;
-        clickMe.style.opacity = 1;
-        cursorItem.style.opacity = 1;
-
-        const cursorX = e.screenX;
-        const cursorY = e.screenY;
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-
-        const leftRatio = (cursorX / windowWidth) * 100;
-        const topRatio = (cursorY / windowHeight) * 100;
-        cursorItem.style.left = `${leftRatio}%`;
-        cursorItem.style.top = `${topRatio - 10}%`;
+        x = e.clientX;
       });
 
       const contentAll = document.querySelectorAll(".contWrap img");
@@ -95,13 +82,15 @@
       const center = contentAll[2];
       const plant = contentAll[3];
 
-      const loop = () => {
+      function loop() {
         targetX += (x - targetX) * speed;
+
         left.style.transform = `translateX(${targetX / 35}px)`;
         right.style.transform = `translateX(${targetX / 20}px)`;
         center.style.transform = `translateX(${-targetX / 20}px)`;
         plant.style.transform = `translateX(${-targetX / 50}px)`;
-        window.requestAnimationFrame(loop);
+        
+        requestAnimationFrame(loop);
       };
 
       loop();

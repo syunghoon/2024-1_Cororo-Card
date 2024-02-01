@@ -37,30 +37,37 @@
       let y = 0;
       let mx = 0;
       let my = 0;
+      let speed = 0.01;
 
       infoButton.addEventListener("click", function () {
         infoButton.style.display = "none";
 
         window.addEventListener("mousemove", function (e) {
+          // x = e.clientX;
+          // y = e.clientY;
           x = e.clientX - window.innerWidth / 2;
           y = e.clientY - window.innerHeight / 2;
-          loop();
+          // console.log(x,'는',e.clientX, '빼기', (window.innerWidth / 2));
+
+          // loop();
         });
       });
 
       function loop() {
         // mx = x;
         // my = y;
-        mx += (x - mx) * 0.001;
-        my += (y - my) * 0.001;
+        mx += (x - mx) * speed;
+        my += (y - my) * speed;
+
         wrap.style.transform =
-          "translate3d(-50%, -50%, 0) rotateX(" + -my / 10 + "deg)";
+          "translate3d(-50%, -50%, 0) rotateX(" + (-my / 10) + "deg)";
         left.style.transform =
           "rotateY(" + Math.max(5, Math.min(160, 160 - mx / 5)) + "deg)";
-        right.style.transform = "rotateY(" + -mx / 50 + "deg)";
+        right.style.transform = "rotateY(" + (-mx / 50) + "deg)";
+
         requestAnimationFrame(loop);
       }
-
+      loop();
     </script>
   </body>
 </html>
