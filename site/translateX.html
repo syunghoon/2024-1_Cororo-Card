@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>translateX</title>
+    <style>
+      body {
+        background-color: blanchedalmond;
+        margin: 0;
+      }
+
+      .contWrap {
+        position: relative;
+        margin: 0 auto;
+        width: 100vw;
+        height: 100vh;
+        /* background: url(./image/06_background.png) no-repeat; */
+      }
+
+      .contWrap div {
+        position: absolute;
+      }
+
+      .contWrap div img {
+        width: 100%;
+        transform-style: preserve-3d;
+        transform-origin: 50% 50%;
+      }
+
+      .left {
+        width: 500px;
+        top: 23%;
+        left: 20%;
+        transform: translateX(-50%);
+      }
+
+      .right {
+        width: 400px;
+        top: 60%;
+        right: 0%;
+        transform: translateX(-20%);
+      }
+
+      .center {
+        width: 100%;
+        margin: 0 auto;
+        bottom: 0%;
+        left: 10%;
+        transform: translateX(-10%);
+      }
+
+      .plant {
+        width: 300px;
+        left: 50%;
+        top: 65%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contWrap">
+      <div class="left"><img src="./image/06_00.png" alt="" /></div>
+      <div class="right"><img src="./image/06_01.png" alt="" /></div>
+      <div class="center"><img src="./image/06_02.png" alt="" /></div>
+      <div class="plant button">
+        <img src="./image/06_03-plant.png" alt="" />
+      </div>
+    </div>
+    <script>
+      let x = 0;
+      let targetX = 0;
+      const speed = 0.1;
+
+      window.addEventListener("mousemove", (e) => {
+        x = e.pageX - window.innerWidth / 2;
+        clickMe.style.opacity = 1;
+        cursorItem.style.opacity = 1;
+
+        const cursorX = e.screenX;
+        const cursorY = e.screenY;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        const leftRatio = (cursorX / windowWidth) * 100;
+        const topRatio = (cursorY / windowHeight) * 100;
+        cursorItem.style.left = `${leftRatio}%`;
+        cursorItem.style.top = `${topRatio - 10}%`;
+      });
+
+      const contentAll = document.querySelectorAll(".contWrap img");
+      const left = contentAll[0];
+      const right = contentAll[1];
+      const center = contentAll[2];
+      const plant = contentAll[3];
+
+      const loop = () => {
+        targetX += (x - targetX) * speed;
+        left.style.transform = `translateX(${targetX / 35}px)`;
+        right.style.transform = `translateX(${targetX / 20}px)`;
+        center.style.transform = `translateX(${-targetX / 20}px)`;
+        plant.style.transform = `translateX(${-targetX / 50}px)`;
+        window.requestAnimationFrame(loop);
+      };
+
+      loop();
+    </script>
+  </body>
+</html>
