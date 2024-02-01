@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2024-1 Cororo Card</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+    <h2>2024-1 Cororo Card</h2>
+
+    <button class="info">버튼을 눌러 펼쳐 보세요</button>
+
+    <div class="wrap">
+      <div class="left">
+        <div class="coverArea">2024</div>
+        <div class="drawingArea"></div>
+        <div class="drawingArea"></div>
+        <div class="drawingArea"></div>
+        <div class="drawingArea"></div>
+      </div>
+      <div class="right">
+        <h2>새해 복 많이 받으세용</h2>
+        <div class="mainArea"></div>
+        <div class="subArea">From. SH</div>
+      </div>
+    </div>
+
+    <script>
+      let infoButton = document.querySelector(".info");
+
+      let wrap = document.querySelector(".wrap");
+      let left = document.querySelector(".left");
+      let right = document.querySelector(".right");
+
+      let x = 0;
+      let y = 0;
+      let mx = 0;
+      let my = 0;
+
+      infoButton.addEventListener("click", function () {
+        infoButton.style.display = "none";
+
+        window.addEventListener("mousemove", function (e) {
+          x = e.clientX - window.innerWidth / 2;
+          y = e.clientY - window.innerHeight / 2;
+          loop();
+        });
+      });
+
+      function loop() {
+        // mx = x;
+        // my = y;
+        mx += (x - mx) * 0.001;
+        my += (y - my) * 0.001;
+        wrap.style.transform =
+          "translate3d(-50%, -50%, 0) rotateX(" + -my / 10 + "deg)";
+        left.style.transform =
+          "rotateY(" + Math.max(5, Math.min(160, 100 - mx / 5)) + "deg)";
+        right.style.transform = "rotateY(" + -mx / 50 + "deg)";
+        requestAnimationFrame(loop);
+      }
+
+    </script>
+  </body>
+</html>
